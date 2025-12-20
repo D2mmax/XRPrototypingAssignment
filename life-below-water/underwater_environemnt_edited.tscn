@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://ci73g5wheycir"]
+
+[ext_resource type="PackedScene" uid="uid://ctnu1ucforq48" path="res://underwater_lowpoly_scene.glb" id="1_f4up5"]
+
+[node name="Sketchfab_Scene" instance=ExtResource("1_f4up5")]
+
+[node name="Object_10" parent="Sketchfab_model/Underwater Scene_obj_cleaner_materialmerger_gles" index="8"]
+visible = false
+
+[node name="Object_11" parent="Sketchfab_model/Underwater Scene_obj_cleaner_materialmerger_gles" index="9"]
+visible = false
+
+[node name="Object_12" parent="Sketchfab_model/Underwater Scene_obj_cleaner_materialmerger_gles" index="10"]
+visible = false
+
+[node name="Object_14" parent="Sketchfab_model/Underwater Scene_obj_cleaner_materialmerger_gles" index="12"]
+visible = false
+
+[node name="Object_15" parent="Sketchfab_model/Underwater Scene_obj_cleaner_materialmerger_gles" index="13"]
+visible = false
+
+[node name="Object_17" parent="Sketchfab_model/Underwater Scene_obj_cleaner_materialmerger_gles" index="15"]
+visible = false
+
+[node name="Object_18" parent="Sketchfab_model/Underwater Scene_obj_cleaner_materialmerger_gles" index="16"]
+visible = false
+
+[node name="Object_19" parent="Sketchfab_model/Underwater Scene_obj_cleaner_materialmerger_gles" index="17"]
+visible = false
+
+[node name="Object_20" parent="Sketchfab_model/Underwater Scene_obj_cleaner_materialmerger_gles" index="18"]
+visible = false
+
+[node name="Object_21" parent="Sketchfab_model/Underwater Scene_obj_cleaner_materialmerger_gles" index="19"]
+visible = false
+
+[node name="Object_22" parent="Sketchfab_model/Underwater Scene_obj_cleaner_materialmerger_gles" index="20"]
+visible = false
