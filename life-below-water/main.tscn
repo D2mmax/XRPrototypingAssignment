@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://b1knqga17kvsh"]
+[gd_scene load_steps=8 format=3 uid="uid://b1knqga17kvsh"]
 
 [ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="1"]
 [ext_resource type="Script" uid="uid://b5gqrhbdpplvk" path="res://xr_startup.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="4"]
-[ext_resource type="PackedScene" uid="uid://ctnu1ucforq48" path="res://underwater_lowpoly_scene.glb" id="5"]
+[ext_resource type="PackedScene" uid="uid://ci73g5wheycir" path="res://underwater_environemnt_edited.tscn" id="5_lquwl"]
+[ext_resource type="PackedScene" uid="uid://blmh620qgypxn" path="res://sea_scooter_pickable.tscn" id="6_7mycd"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
 radius = 1.0
@@ -41,4 +42,8 @@ pose = &"grip"
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10, 0)
 light_energy = 2.0
 
-[node name="UnderwaterEnvironment" parent="." instance=ExtResource("5")]
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("5_lquwl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31691813, -0.5917969, 0.05574417)
+
+[node name="Seascooter" parent="." instance=ExtResource("6_7mycd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.23484069, 0, 0.18806893)
