@@ -56,7 +56,7 @@ func move_player(delta: float):
 	if not xr_origin:
 		return
 	
-	# Get forward direction of scooter
+	# Get forward direction of scooter (back to original working method)
 	var forward = -global_transform.basis.z
 	var movement = forward * movement_speed * delta
 	xr_origin.global_position += movement

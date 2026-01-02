@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b1knqga17kvsh"]
+[gd_scene load_steps=14 format=3 uid="uid://b1knqga17kvsh"]
 
 [ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="1"]
 [ext_resource type="Script" uid="uid://b5gqrhbdpplvk" path="res://xr_startup.gd" id="2"]
@@ -7,9 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://ci73g5wheycir" path="res://underwater_environemnt_edited.tscn" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://blmh620qgypxn" path="res://sea_scooter_pickable.tscn" id="6_7mycd"]
-[ext_resource type="Script" path="res://simple_turn.gd" id="7"]
-[ext_resource type="PackedScene" uid="uid://bottle_pickable" path="res://plastic_bottle_pickable.tscn" id="8"]
-[ext_resource type="Script" path="res://collection_zone.gd" id="9"]
+[ext_resource type="Script" uid="uid://camvmik3wseso" path="res://simple_turn.gd" id="7"]
+[ext_resource type="Script" uid="uid://bxfcf7wp2n375" path="res://collection_zone.gd" id="9"]
+[ext_resource type="Script" uid="uid://c25gd73v5rl0h" path="res://bottle_spawner.gd" id="10"]
+[ext_resource type="Script" path="res://boundary_clamp.gd" id="11"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
 radius = 1.0
@@ -17,12 +18,18 @@ radius = 1.0
 [sub_resource type="BoxShape3D" id="BoxShape3D_backpack"]
 size = Vector3(1, 1, 0.5)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
+size = Vector3(20, 0.1, 20)
+
 [node name="UnderwaterScene" type="Node3D"]
 script = ExtResource("2")
 
 [node name="StartXR" parent="." instance=ExtResource("1")]
 
 [node name="XROrigin3D" type="XROrigin3D" parent="." groups=["XROrigin3D"]]
+
+[node name="BoundaryClamp" type="Node3D" parent="XROrigin3D"]
+script = ExtResource("11")
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
@@ -70,14 +77,34 @@ light_energy = 2.0
 [node name="Sketchfab_Scene" parent="." instance=ExtResource("5_lquwl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31700224, -0.58989984, 0.055738866)
 
+[node name="EnvironmentCollision" type="StaticBody3D" parent="."]
+
+[node name="Floor" type="CollisionShape3D" parent="EnvironmentCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+shape = SubResource("BoxShape3D_floor")
+
+[node name="WallNorth" type="CollisionShape3D" parent="EnvironmentCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 2, -10)
+shape = SubResource("BoxShape3D_floor")
+
+[node name="WallSouth" type="CollisionShape3D" parent="EnvironmentCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 2, 10)
+shape = SubResource("BoxShape3D_floor")
+
+[node name="WallEast" type="CollisionShape3D" parent="EnvironmentCollision"]
+transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 10, 2, 0)
+shape = SubResource("BoxShape3D_floor")
+
+[node name="WallWest" type="CollisionShape3D" parent="EnvironmentCollision"]
+transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, -10, 3.7606926, 0)
+shape = SubResource("BoxShape3D_floor")
+
+[node name="Ceiling" type="CollisionShape3D" parent="EnvironmentCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.945738, 0)
+shape = SubResource("BoxShape3D_floor")
+
 [node name="Seascooter" parent="." instance=ExtResource("6_7mycd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -1)
 
-[node name="Bottle1" parent="." instance=ExtResource("8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -2)
-
-[node name="Bottle2" parent="." instance=ExtResource("8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.8, -1.5)
-
-[node name="Bottle3" parent="." instance=ExtResource("8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.2, -2.5)
+[node name="BottleSpawner" type="Node3D" parent="."]
+script = ExtResource("10")

@@ -10,7 +10,7 @@ radius = 0.015
 
 [node name="PlasticBottle" instance=ExtResource("1")]
 collision_layer = 4
-collision_mask = 0
+collision_mask = 1
 gravity_scale = 0.0
 press_to_hold = true
 
