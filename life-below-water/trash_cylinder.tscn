@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://trash_cylinder_001"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_1"]
+radius = 0.04
+height = 0.15
+
+[node name="TrashCylinder" instance=ExtResource("1")]
+gravity_scale = 0.0
+press_to_hold = true
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = SubResource("CylinderShape3D_1")

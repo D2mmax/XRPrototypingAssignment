@@ -1,25 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://trash_bottle_001"]
+[gd_scene load_steps=4 format=3 uid="uid://trash_bottle_pickup"]
 
-[ext_resource type="PackedScene" uid="uid://qaxad95wb27p" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_1"]
-top_radius = 0.04
-bottom_radius = 0.04
-height = 0.15
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://lowpoly_stylized_litter_free.glb" id="2"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_1"]
-radius = 0.04
-height = 0.15
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
-albedo_color = Color(0.2, 0.6, 1, 0.8)
-transparency = 1
+radius = 0.03
+height = 0.12
 
 [node name="TrashBottle" instance=ExtResource("1")]
+gravity_scale = 0.0
+press_to_hold = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="0"]
-mesh = SubResource("CylinderMesh_1")
-surface_material_override/0 = SubResource("StandardMaterial3D_1")
+[node name="BottleModel" parent="." index="0" instance=ExtResource("2")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+[node name="CollisionShape3D" parent="." index="1"]
 shape = SubResource("CylinderShape3D_1")
