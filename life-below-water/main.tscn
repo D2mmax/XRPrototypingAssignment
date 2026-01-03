@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b1knqga17kvsh"]
+[gd_scene load_steps=15 format=3 uid="uid://b1knqga17kvsh"]
 
 [ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="1"]
 [ext_resource type="Script" uid="uid://b5gqrhbdpplvk" path="res://xr_startup.gd" id="2"]
@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://camvmik3wseso" path="res://simple_turn.gd" id="7"]
 [ext_resource type="Script" uid="uid://bxfcf7wp2n375" path="res://collection_zone.gd" id="9"]
 [ext_resource type="Script" uid="uid://c25gd73v5rl0h" path="res://bottle_spawner.gd" id="10"]
-[ext_resource type="Script" path="res://boundary_clamp.gd" id="11"]
+[ext_resource type="Script" uid="uid://ba5r1phhv6o7l" path="res://boundary_clamp.gd" id="11"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
 radius = 1.0
@@ -75,7 +75,7 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 
 light_energy = 2.0
 
 [node name="Sketchfab_Scene" parent="." instance=ExtResource("5_lquwl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31700224, -0.58989984, 0.055738866)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.44264883, -1.5076725, 0.55841964)
 
 [node name="EnvironmentCollision" type="StaticBody3D" parent="."]
 

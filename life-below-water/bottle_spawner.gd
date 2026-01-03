@@ -70,7 +70,7 @@ func spawn_bottle():
 	
 	# Create bottle
 	var bottle = bottle_scene.instantiate()
-	get_parent().add_child(bottle)
+	get_parent().call_deferred("add_child", bottle)
 	bottle.global_position = spawn_pos
 	
 	# Track this bottle
