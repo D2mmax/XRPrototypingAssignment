@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b1knqga17kvsh"]
+[gd_scene load_steps=17 format=3 uid="uid://b1knqga17kvsh"]
 
 [ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="1"]
 [ext_resource type="Script" uid="uid://b5gqrhbdpplvk" path="res://xr_startup.gd" id="2"]
@@ -16,7 +16,14 @@
 radius = 1.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_backpack"]
-size = Vector3(1, 1, 0.5)
+size = Vector3(1, 1.5, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="Material_backpack"]
+transparency = 1
+albedo_color = Color(0, 1, 0, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_backpack"]
+size = Vector3(1, 1.5, 0.6)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
 size = Vector3(20, 0.1, 20)
@@ -41,13 +48,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_1")
 
 [node name="CollectionZone" type="Area3D" parent="XROrigin3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0.8)
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("9")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/CollectionZone"]
 shape = SubResource("BoxShape3D_backpack")
+
+[node name="VisualMesh" type="MeshInstance3D" parent="XROrigin3D/CollectionZone"]
+material_override = SubResource("Material_backpack")
+mesh = SubResource("BoxMesh_backpack")
 
 [node name="LeftHand" type="XRController3D" parent="XROrigin3D"]
 tracker = &"left_hand"
@@ -104,7 +115,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.945738, 0)
 shape = SubResource("BoxShape3D_floor")
 
 [node name="Seascooter" parent="." instance=ExtResource("6_7mycd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97228575, -0.7461307)
 
 [node name="BottleSpawner" type="Node3D" parent="."]
 script = ExtResource("10")

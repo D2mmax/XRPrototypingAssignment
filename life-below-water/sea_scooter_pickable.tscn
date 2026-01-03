@@ -10,12 +10,14 @@
 size = Vector3(0.25, 0.2, 0.7)
 
 [node name="Seascooter" instance=ExtResource("1")]
+mass = 1.0
 gravity_scale = 0.0
+linear_damp = 2.0
+angular_damp = 5.0
 press_to_hold = true
 second_hand_grab = 2
 script = ExtResource("2")
 movement_speed = 2.0
-second_hand_grab = 2
 
 [node name="ScooterModel" parent="." index="0" instance=ExtResource("3")]
 transform = Transform3D(-0.003, 0, 0, 0, 0.003, 0, 0, 0, -0.003, 0, 0, 0)

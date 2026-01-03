@@ -60,6 +60,13 @@ func move_player(delta: float):
 	var forward = -global_transform.basis.z
 	var movement = forward * movement_speed * delta
 	xr_origin.global_position += movement
+	
+	# Add haptic feedback to both hands while moving
+	if _grab_driver:
+		if _grab_driver.primary and _grab_driver.primary.controller:
+			_grab_driver.primary.controller.trigger_haptic_pulse("haptic", 0, 0.3, 0.1, 0)
+		if _grab_driver.secondary and _grab_driver.secondary.controller:
+			_grab_driver.secondary.controller.trigger_haptic_pulse("haptic", 0, 0.3, 0.1, 0)
 
 func _on_picked_up(what):
 	# Find which hand is holding us
