@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bek2r5ycuqkyg"]
+[gd_scene load_steps=6 format=3 uid="uid://bek2r5ycuqkyg"]
 
 [ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1"]
-[ext_resource type="PackedScene" uid="uid://d2414notxlgyu" path="res://plastic_water_bottle.glb" id="2"]
+[ext_resource type="Script" path="res://bottle_pickup_behavior.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://d2414notxlgyu" path="res://plastic_water_bottle.glb" id="2_old"]
 [ext_resource type="PackedScene" uid="uid://bxipj7hyjwy6f" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="4"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_1"]
@@ -10,11 +11,16 @@ radius = 0.015
 
 [node name="PlasticBottle" instance=ExtResource("1")]
 collision_layer = 4
-collision_mask = 1
+collision_mask = 0
+mass = 0.1
 gravity_scale = 0.0
+linear_damp = 20.0
+angular_damp = 20.0
+lock_rotation = true
 press_to_hold = true
+script = ExtResource("2")
 
-[node name="BottleModel" parent="." index="0" instance=ExtResource("2")]
+[node name="BottleModel" parent="." index="0" instance=ExtResource("2_old")]
 transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
 
 [node name="CollisionShape3D" parent="." index="1"]

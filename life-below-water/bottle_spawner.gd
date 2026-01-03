@@ -6,10 +6,9 @@ extends Node3D
 # Wave settings
 @export var bottles_per_wave: int = 8  # How many bottles per wave
 @export var collection_threshold: int = 6  # Spawn next wave when this many are collected
-@export var min_spawn_height: float = 4.0  # Minimum spawn height
-@export var max_spawn_height: float = 8.0  # Maximum spawn height
+@export var min_spawn_height: float = 1.0  # Minimum spawn height
+@export var max_spawn_height: float = 3.5  # Maximum spawn height
 @export var spawn_radius: float = 8.0  # How far from center to spawn
-@export var float_down_speed: float = 0.3  # Speed bottles sink
 
 var xr_origin: XROrigin3D = null
 var collection_zone: Area3D = null
@@ -76,26 +75,54 @@ func spawn_bottle():
 	# Track this bottle
 	current_wave_bottles.append(bottle)
 	
-	# Add floating behavior
+	# Add gentle floating animation
 	var floater = FloatingBottle.new()
-	floater.float_speed = float_down_speed
-	bottle.add_child(floater)
+	bottle.call_deferred("add_child", floater)
 
 func _on_trash_collected(item):
 	total_collected += 1
 	print("Collected: ", total_collected, " / ", collection_threshold * (wave_number + 1))
 
-# Inner class to handle floating
+# Inner class to add gentle bobbing motion
 class FloatingBottle extends Node:
-	var float_speed: float = 0.3
+	var time: float = 0.0
+	var bob_speed: float = 0.5
+	var bob_amount: float = 0.15
+	var initial_y: float = 0.0
+	var is_active: bool = true
+	
+	func _ready():
+		var parent_node = get_parent()
+		if parent_node:
+			initial_y = parent_node.global_position.y
+			# Random starting offset so bottles don't all bob in sync
+			time = randf() * TAU
+			
+			# Connect to pickup signals to stop bobbing when held
+			if parent_node.has_signal("picked_up"):
+				parent_node.picked_up.connect(_on_picked_up)
+			if parent_node.has_signal("dropped"):
+				parent_node.dropped.connect(_on_dropped)
+	
+	func _on_picked_up(_what):
+		is_active = false
+	
+	func _on_dropped(_what):
+		is_active = true
+		# Update initial_y to current position
+		var parent_node = get_parent()
+		if parent_node:
+			initial_y = parent_node.global_position.y
 	
 	func _physics_process(delta):
-		var parent_node = get_parent()
-		if parent_node and parent_node is RigidBody3D:
-			# Apply downward velocity instead of direct position change
-			# This way it will stop when it hits the floor
-			parent_node.linear_velocity = Vector3(0, -float_speed, 0)
+		if not is_active:
+			return
 			
-			# Remove if it falls too far
-			if parent_node.global_position.y < -2.0:
-				parent_node.queue_free()
+		var parent_node = get_parent()
+		if parent_node:
+			time += delta * bob_speed
+			# Gentle up/down bobbing motion
+			var offset = sin(time) * bob_amount
+			var pos = parent_node.global_position
+			pos.y = initial_y + offset
+			parent_node.global_position = pos
