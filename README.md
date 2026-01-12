@@ -10,4 +10,8 @@ For my Assignment i have chosen the development goal "LIFE BELOW WATER"
 
 
  I will be doing this project solo.
- Maxim Gerashchenko
+ Maxim Gerashchenko 
+
+
+ the project is slighly different than what i planned intitally,
+ you can swim around using the sea scooter, hold it using the 2 grab buttons on your hands and accelerate using the triggers, you can use the right joystick to rotate camera, to collect trash pick it up then reach over your shoulder and drop it as if ur putting it in a backpack, if your controller vibrates its been collected, the sea scooter also vibrates when being used, also there is sound for the seascooter and underwater ambiance, the sound wasnt recorded in the video, wasnt pickinged up by recording software.
