@@ -2,12 +2,17 @@ extends XRToolsPickable
 
 # Movement speed when trigger is held
 @export var movement_speed: float = 2.0
+@export var motor_sound: AudioStream
 
 # Is the scooter currently held
 var holding_controller: XRController3D = null
 
 # Reference to XROrigin3D
 var xr_origin: XROrigin3D = null
+
+# Audio player for motor sound
+var audio_player: AudioStreamPlayer = null
+var is_moving: bool = false
 
 func _ready():
 	super._ready()
@@ -16,6 +21,14 @@ func _ready():
 	xr_origin = get_tree().get_first_node_in_group("XROrigin3D")
 	if not xr_origin:
 		xr_origin = _find_xr_origin(get_tree().root)
+	
+	# Create audio player for motor sound (using regular AudioStreamPlayer for debugging)
+	audio_player = AudioStreamPlayer.new()
+	add_child(audio_player)
+	audio_player.stream = motor_sound
+	audio_player.bus = "Master"
+	audio_player.volume_db = 0.0
+	print("Audio player created with stream: ", motor_sound)
 	
 	# Connect to pickup signals
 	picked_up.connect(_on_picked_up)
@@ -32,6 +45,10 @@ func _find_xr_origin(node: Node) -> XROrigin3D:
 
 func _physics_process(delta):
 	if not is_picked_up():
+		# Stop sound if not picked up
+		if audio_player and audio_player.playing:
+			audio_player.stop()
+		is_moving = false
 		return
 	
 	# Check if ANY controller's trigger is pressed
@@ -50,13 +67,28 @@ func _physics_process(delta):
 			should_move = true
 	
 	if should_move:
+		# Start motor sound if not already playing
+		if audio_player:
+			if not audio_player.playing:
+				print("Starting motor sound")
+				audio_player.play()
+			else:
+				print("Motor already playing")
+		else:
+			print("No audio player!")
+		is_moving = true
 		move_player(delta)
+	else:
+		# Stop motor sound when not moving
+		if audio_player and audio_player.playing:
+			audio_player.stop()
+		is_moving = false
 
 func move_player(delta: float):
 	if not xr_origin:
 		return
 	
-	# Get forward direction of scooter (back to original working method)
+	# Get forward direction of scooter
 	var forward = -global_transform.basis.z
 	var movement = forward * movement_speed * delta
 	xr_origin.global_position += movement
@@ -76,6 +108,10 @@ func _on_picked_up(what):
 
 func _on_dropped(what):
 	holding_controller = null
+	# Stop motor sound
+	if audio_player and audio_player.playing:
+		audio_player.stop()
+	is_moving = false
 	# Stop it from flying away
 	linear_velocity = Vector3.ZERO
 	angular_velocity = Vector3.ZERO

@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://iu7t45lqr5gg" path="res://sea_scooter.glb" id="3"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="5_thvp2"]
+[ext_resource type="AudioStream" path="res://808925__designerschoice__motrelec-samsung-galaxy-smartphone_massager-turn-on-run-at-low-speed-off-quiet-motor-purring_nicholas-judy_tdc.wav" id="6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1"]
 size = Vector3(0.25, 0.2, 0.7)
@@ -18,6 +19,7 @@ press_to_hold = true
 second_hand_grab = 2
 script = ExtResource("2")
 movement_speed = 2.0
+motor_sound = ExtResource("6")
 
 [node name="ScooterModel" parent="." index="0" instance=ExtResource("3")]
 transform = Transform3D(-0.003, 0, 0, 0, 0.003, 0, 0, 0, -0.003, 0, 0, 0)
